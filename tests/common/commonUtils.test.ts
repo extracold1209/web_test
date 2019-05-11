@@ -3,7 +3,7 @@ import _ from 'lodash';
 import utils from '../../src/common/commonUtils';
 
 describe('projection', function () {
-    it('많은 값에 적은 값 넣기', function () {
+    it('포함되는 경우', function () {
         const original = {
             a: 'aa',
             b: 'bb',
@@ -22,4 +22,23 @@ describe('projection', function () {
             c: 'modified_cc',
         })).to.be.true;
     });
+
+    it('겹치는 경우', function() {
+        const original = {
+            a: 'aa',
+            b: 'bb',
+            c: 'cc',
+        }
+
+        const source = {
+            b: 'modified_bb',
+            c: 'modified_cc',
+            d: 'dd',
+        }
+        const result = utils.projection(original, source);
+        expect(_.isEqual(result, {
+            b: 'modified_bb',
+            c: 'modified_cc',
+        })).to.be.true;
+    })
 });
