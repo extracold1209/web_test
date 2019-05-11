@@ -1,4 +1,5 @@
 import express from './express';
+import mongoose from 'mongoose';
 import http from 'http';
 
 const port = process.env.PORT || 3000;
