@@ -1,5 +1,5 @@
 import { expect, assert } from 'chai';
-import mongoose, { Error as MongooseError } from 'mongoose';
+import mongoose from 'mongoose';
 import Post from 'models/post';
 import PostService from 'services/postService';
 import { MongoMemoryServer } from 'mongodb-memory-server';
@@ -63,4 +63,31 @@ describe('PostService test', () => {
             }
         });
     });
+
+    describe('getPost', () => {
+        before((done) => {
+            new Post({
+                title: 'title',
+                author: 'author',
+                body: 'body',
+            }).save(done);
+        });
+
+        it('정상동작', async () => {
+            const result = await PostService.getPost({
+                title: 'title'
+            });
+
+            expect(result).is.not.null;
+        });
+
+        it('데이터가 없는 경우', async () => {
+            const result = await PostService.getPost({
+                title: 'noContents',
+            });
+
+            expect(result).is.null;
+        });
+
+    })
 });

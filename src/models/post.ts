@@ -1,5 +1,12 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
+export interface IPostSearchQuery {
+    _id?: string,
+    title?: string,
+    author?: string,
+    // body?: string,
+}
+
 export interface IPost extends Document {
     title: string,
     author: string,
