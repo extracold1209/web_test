@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import _ from 'lodash';
-import utils from '../../src/common/commonUtils';
+import utils from 'src/common/commonUtils';
 
 describe('projection', function () {
     it('포함되는 경우', function () {
