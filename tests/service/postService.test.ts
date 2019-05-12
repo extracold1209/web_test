@@ -33,8 +33,8 @@ describe('PostService test', () => {
     });
 
     describe('addPost', () => {
-        afterEach((done) => {
-            Post.deleteOne({ title: 'dummyTitle' }, done);
+        afterEach(async () => {
+            await Post.deleteOne({ title: 'dummyTitle' });
         })
 
         it('정상추가', async () => {
@@ -65,12 +65,16 @@ describe('PostService test', () => {
     });
 
     describe('getPost', () => {
-        before((done) => {
-            new Post({
+        before(async () => {
+            await new Post({
                 title: 'title',
                 author: 'author',
                 body: 'body',
-            }).save(done);
+            }).save();
+        });
+
+        after(async () => {
+            await Post.findOneAndDelete({title: 'title'});
         });
 
         it('정상동작', async () => {
@@ -88,6 +92,25 @@ describe('PostService test', () => {
 
             expect(result).is.null;
         });
+    });
 
+    describe('deletePost', () => {
+        beforeEach(async () => {
+            await new Post({
+                title: 'title',
+                author: 'author',
+                body: 'body',
+            }).save();
+        });
+
+        afterEach(async () => {
+            await Post.findOneAndDelete({title: 'title'});
+        });
+
+        it('정상동작', async () => {
+            await PostService.deletePost({title: 'title'});
+            const postCount = await Post.countDocuments();
+            expect(postCount).equal(0);
+        });
     })
 });
