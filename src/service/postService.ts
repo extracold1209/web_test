@@ -1,7 +1,7 @@
-import Post from 'models/post';
+import Post, { IPost } from 'models/post';
 
 export default class {
-    static async getAllPosts() {
+    static async getAllPosts(): Promise<IPost[]> {
         return await Post.find({});
     }
     //..
