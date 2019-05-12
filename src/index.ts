@@ -11,4 +11,13 @@ server.on('error', (e) => {
 });
 server.on('listening', () => {
     console.log('server listen, PORT :', port);
+    mongoose.connect('mongodb://localhost:27017/database', { useNewUrlParser: true });
+
+    mongoose.connection.on('error', (e) => {
+        console.log(`Mongo DB Connection failed.\n${e}`);
+    });
+
+    mongoose.connection.once('open', () => {
+        console.log('Mongo DB Connect Successfully.');
+    })
 });

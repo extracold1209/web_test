@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node .",
+    "start": "ts-node -r tsconfig-paths/register .",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register tests/**/*.test.ts",
     "testWithCoverage": "nyc -r lcov -e .ts -x \"tests/*.test.ts\" mocha -r ts-node/register tests/**/*.test.ts && nyc report"
   },
